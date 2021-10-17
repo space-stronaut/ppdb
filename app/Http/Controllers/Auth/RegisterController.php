@@ -68,14 +68,14 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role_id' => 1,
+            'role_id' => 2,
+            'jalur' => $data['jalur'],
             'nisn' => $data['nisn'],
             'nohp' => $data['nohp'],
             'gender' => $data['gender'],
             'tanggal_lahir' => $data['tanggal_lahir'],
             'tempat_lahir' => $data['tempat_lahir'],
             'username' => 'PPDB'.$data['nisn'].'2021',
-            'jurusan_id' => $data['jurusan_id'],
             'smp_id' => $data['smp_id'],
             'password' => Hash::make($data['password']),
         ]);

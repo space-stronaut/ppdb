@@ -29,7 +29,10 @@ class User extends Authenticatable
         'nohp',
         'tempat_lahir',
         'tanggal_lahir',
-        'gender'
+        'gender',
+        'nama_ibu',
+        'nama_ayah',
+        'nama_wali'
     ];
 
     /**

@@ -17,7 +17,10 @@ class CreatePendaftaranTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('berkas');
+            $table->string('foto_nisn')->nullable();
+            $table->string('foto_raport')->nullable();
+            $table->string('pas_foto')->nullable();
+            $table->string('bukti_pembayaran')->nullable();
             $table->string('status');
             $table->timestamps();
         });

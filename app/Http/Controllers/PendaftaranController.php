@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,12 +94,35 @@ class PendaftaranController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-        if ($request->hasFile('berkas')) {
+
+        if ($request->hasFile('berkas')){
             $data['berkas'] = $request->file('berkas')->store('berkas', 'public');
+            if (Pendaftaran::where('user_id', Auth::user()->id)->first() != NULL) {
+                Pendaftaran::find($id)->update([
+                    'user_id' => Auth::user()->id,
+                    'berkas' => $data['berkas']
+                ]);
+            }else{
+                Pendaftaran::create([
+                    'user_id' => Auth::user()->id,
+                    'status' => 'proses',
+                    'berkas' => $data['berkas']
+                ]);
+            }
         }
 
-        Pendaftaran::find($id)->update($data);
+
+        User::find($request->id)->update([
+            'name' => $request->name,
+            'nohp' => $request->nohp,
+            'nisn' => $request->nisn,
+            'tempat_lahir' => $request->tempat_lahir,
+            'nama_ibu' => $request->nama_ibu,
+            'nama_ayah' => $request->nama_ayah,
+            'nama_wali' => $request->nama_wali
+        ]);
+
+        // dd($request);
 
         return redirect()->route('pendaftaran.index');
     }
@@ -121,6 +145,9 @@ class PendaftaranController extends Controller
         $berkas = Pendaftaran::find($id)->berkas;
 
         return response()->download(storage_path('app/public/'.$berkas));
+
+        // return response()->download(storage_path('app/public/'.$bukti));
+        // return response()->download(storage_path('app/public/'.$berkas));
     }
 
     public function status(Request $request,$id)

@@ -91,12 +91,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Jurusan</label>
+                            <label for="">Jalur</label>
 
-                            <select name="jurusan_id" id="" class="form-control">
-                                @foreach (App\Models\Jurusan::all() as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @endforeach
+                            <select name="jalur" class="form-control" id="">
+                                <option value="">Pilih Jalur</option>
+                                <option value="reguler">REGULER</option>
+                                <option value="yatim">YATIM</option>
                             </select>
                         </div>
 
